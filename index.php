@@ -1,11 +1,18 @@
-<?php
+<?php 
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
-require_once "vendor/autoload.php";
-require_once "config/bootstrap.php";
-require_once "config/cli.php";
-require_once "config/database.php";
-require_once "config/auth.php";
+require_once __DIR__."/vendor/autoload.php";
+require_once __DIR__."/config/database.php";
 
-echo $name;
-?>
-<h1>Sushil</h1>
+$loader = new FilesystemLoader(__DIR__.'/resources/views');
+
+$twig = new Environment($loader,[
+  'cache'=>__DIR__.'/public/cache',
+  'debug'=>true
+]);
+
+echo $twig->render('index.twig',[
+  'title'=>'Code With Sushil',
+  'name'=>'Sushil Kumar (Web Developer)'
+]);
